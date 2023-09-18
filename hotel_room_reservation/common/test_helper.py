@@ -12,14 +12,14 @@ class CommonTestHelper:
     """
 
     @staticmethod
-    def setup_a_new_room():
+    def setup_a_new_room(status=1):
         room_data = {
             "name": "Room 201",
             "description": "Standard Double Room",
             "capacity": 2,
             "price_per_night": 100,
             "meta": {},
-            "status": 1
+            "status": status
         }
         existing_room = Room.objects.first()
         if existing_room is None:

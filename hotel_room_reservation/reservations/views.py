@@ -22,7 +22,7 @@ class ReservationViewSet(viewsets.ModelViewSet):
         permission for access control
         :return:
         """
-        if self.action in ("retrieve", "create", "list", "cancel"):
+        if self.action in ("retrieve", "create", "list", "cancel", "schedule"):
             _permissions = [permissions.IsAuthenticated]
         elif self.action in ("update", "delete"):
             if (self.request.user.is_staff
@@ -40,7 +40,7 @@ class ReservationViewSet(viewsets.ModelViewSet):
         get specific subset of data based on user
         :return:
         """
-        if self.action in ("retrieve", "list", "cancel", "update", "reservation_schedule"):
+        if self.action in ("retrieve", "list", "cancel", "update", "schedule"):
             if self.request.user.is_staff or self.request.user.is_superuser:
                 return get_all_reservations_staff()
             else:
@@ -107,7 +107,7 @@ class ReservationViewSet(viewsets.ModelViewSet):
         """
         start_date_str = kwargs.get("start_date")
         end_date_str = kwargs.get("end_date")
-        date_format = "%y-%m-%d"
+        date_format = "%Y-%m-%d"
         start_date = datetime.datetime.strptime(start_date_str, date_format)
         end_date = datetime.datetime.strptime(end_date_str, date_format)
         if self.request.user.is_staff or self.request.user.is_superuser:

@@ -9,12 +9,14 @@ from .exceptions import ReservationAlreadyExistsException
 from .models import Reservation
 
 
-def create_reservation(reservation_data):
+def create_reservation(**reservation_data):
     with transaction.atomic():
         room = reservation_data.get('room')
         check_in_date = reservation_data.get('check_in_date')
         check_out_date = reservation_data.get('check_out_date')
-
+        period = check_out_date - check_in_date
+        reservation_price = period.days * room.price_per_night
+        reservation_data["reservation_price"] = reservation_price
         # Check if there are any reservations for the same room type within the given date range
         existing_reservations = Reservation.objects.filter(
             room=room,

@@ -7,7 +7,7 @@ from .serializers import RoomSerializer
 from .services import list_rooms_staff, list_rooms_client
 
 
-class RoomTypeListView(viewsets.ModelViewSet):
+class RoomViewSet(viewsets.ModelViewSet):
     serializer_class = RoomSerializer
 
     def get_permissions(self):

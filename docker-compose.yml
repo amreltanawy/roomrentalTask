@@ -10,6 +10,7 @@ services:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
     image: hotel_room_reservation_local_django
+    restart: always
     container_name: hotel_room_reservation_local_django
     depends_on:
       - postgres

@@ -1,15 +1,20 @@
 from django.conf import settings
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
+from hotel_room_reservation.reservations.views import ReservationViewSet
 from hotel_room_reservation.users.api.views import UserViewSet
 
 if settings.DEBUG:
-    router = DefaultRouter()
+    Router = DefaultRouter
 else:
-    router = SimpleRouter()
+    Router = SimpleRouter
 
-router.register("users", UserViewSet)
+user_router = Router()
+user_router.register("users", UserViewSet)
+
+reservations_router = Router()
+reservations_router.register("reservations", ReservationViewSet, basename='reservations')
 
 
-app_name = "api"
-urlpatterns = router.urls
+urlpatterns = user_router.urls
+urlpatterns += reservations_router.urls

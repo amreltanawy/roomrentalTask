@@ -1,11 +1,23 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.contrib.auth.decorators import login_required
+from django.urls import include, path, re_path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+API_INFO = openapi.Info(
+    title="reservation API",
+    default_version="0.1.0",
+    description="reservation API",
+)
+SchemaView = get_schema_view(
+    url="http://localhost", public=True, permission_classes=(permissions.AllowAny,)
+)
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -20,16 +32,16 @@ urlpatterns = [
 
 # API URLS
 urlpatterns += [
-    # API base url
-    path("api/", include("config.api_router")),
     # DRF auth token
     path("auth-token/", obtain_auth_token),
-    path("api/schema/", SpectacularAPIView.as_view(), name="api-schema"),
+    re_path(r"^swagger(?P<format>\.json|\.yaml)$", SchemaView.without_ui(cache_timeout=0)),
     path(
         "api/docs/",
-        SpectacularSwaggerView.as_view(url_name="api-schema"),
+        login_required(SchemaView.with_ui("swagger", cache_timeout=1)),
         name="api-docs",
     ),
+    # API base url
+    path("", include("config.api_router")),
 ]
 
 if settings.DEBUG:

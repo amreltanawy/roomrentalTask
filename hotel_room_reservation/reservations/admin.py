@@ -3,7 +3,7 @@ from .models import Reservation
 
 
 @admin.register(Reservation)
-class RoomAdmin(admin.ModelAdmin):
-    list_display = ('user', 'room', 'price_per_night', 'status')
+class ReservationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'room', 'reservation_price', 'status')
     list_filter = ('status',)
     search_fields = ('user', 'room')

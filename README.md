@@ -7,6 +7,46 @@ an interview task to develop a room reservation system with a specific requireme
 
 License: MIT
 
+## Database Schema
+
+## Models ( database Tables)
+
+### User Model
+user model is a generic user profile data to support authentication and basic role assignment
+#### Attributes
+- pk 
+- password
+- is_email_verified
+- name
+- email
+- is_active
+- last_login
+- is_superuser
+- is_staff
+
+### Room Model
+Room model holds the most basic entity that can be reserved for a period of time given a price
+#### Attributes
+- pk
+- name
+- description 
+- capacity
+- price_per_night
+- meta (a json field data type that allows for extra attributes to be added dynamically to support change of requirements)
+- status ( active/inactive rooms)
+
+### Reservation Model
+Reservation model is the persistence of actual reservation requests that has been created on a room whether cancelled or not
+#### Attributes
+- pk
+- user (a relationship with a single user due to many to one nature. each reservation is for 1 user)
+- room (a relationship with a single room due to many to one nature. each reservation is for 1 room)
+- status (active/inactive which resembles running/cancelled reservations)
+- reservation_price (Total stay aggregation this where the final price  can be stored)
+- check_in_date
+- check_out_date
+- meta (a json field data type that allows for extra attributes to be added dynamically to support change of requirements)
+
 ## Basic Commands
 
 ### Requirements

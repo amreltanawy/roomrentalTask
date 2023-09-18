@@ -7,54 +7,54 @@ an interview task to develop a room reservation system with a specific requireme
 
 License: MIT
 
-## Settings
-
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
-
 ## Basic Commands
 
+### Requirements
+
+- Docker-compose installed follow [here](https://docs.docker.com/compose/install/) to install
+- unix based operating system
+- gitcli to clone the project
+
+### Connecting to the docker container
+
+- ensure you are at the home directory in your terminal
+
+      $ docker-compose up
+
+- after running the docker container run the following command to gain shell access to the container containing django
+
+      $ docker exec -it hotel_room_reservation_local_django /bin/bash
 ### Setting Up Your Users
 
-- To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+
+- To create a new user please use swagger endpoint at /api/docs/ where u will find a user/register endpoint
 
 - To create a **superuser account**, use this command:
 
       $ python manage.py createsuperuser
 
+- To utilize the default user available
+
+```
+email = amr@test.com
+password = test1234
+```
+
+
 For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
 
-### Type checks
 
-Running type checks with mypy:
+### Swagger
 
-    $ mypy hotel_room_reservation
+Documentation for the endpoints are located at http://localhost:8000/api/docs/:
+
 
 ### Test coverage
 
-To run the tests, check your test coverage, and generate an HTML coverage report:
+To run the tests:
+ make sure you are inside the docker container
 
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
-
-#### Running tests with pytest
-
-    $ pytest
-
-### Live reloading and Sass CSS compilation
-
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
-
-### Sentry
-
-Sentry is an error logging aggregator service. You can sign up for a free account at <https://sentry.io/signup/?code=cookiecutter> or download and host it yourself.
-The system is set up with reasonable defaults, including 404 logging and integration with the WSGI application.
-
-You must set the DSN url in production.
-
-## Deployment
-
-The following details how to deploy this application.
+    $ python manage.py test
 
 ### Docker
 

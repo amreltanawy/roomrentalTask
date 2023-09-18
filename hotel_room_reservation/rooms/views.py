@@ -19,7 +19,7 @@ class RoomTypeListView(viewsets.ModelViewSet):
             _permissions = [permissions.IsAuthenticated]
         elif self.action in ("create", "update", "delete"):
             if (self.request.user.is_staff
-                or self.request.user.is_admin
+                or self.request.user.is_superuser
             ):
                 _permissions = [permissions.IsAuthenticated]
             else:
@@ -36,7 +36,7 @@ class RoomTypeListView(viewsets.ModelViewSet):
         """
         if self.action in ("retrieve", "list"):
             if (self.request.user.is_staff
-                or self.request.user.is_admin
+                or self.request.user.is_superuser
             ):
                 return list_rooms_staff()
             return list_rooms_client()

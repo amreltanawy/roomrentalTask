@@ -16,7 +16,7 @@ API_INFO = openapi.Info(
     description="reservation API",
 )
 SchemaView = get_schema_view(
-    url="http://localhost", public=True, permission_classes=(permissions.AllowAny,)
+    url="http://localhost:8000", public=True, permission_classes=(permissions.AllowAny,)
 )
 
 urlpatterns = [

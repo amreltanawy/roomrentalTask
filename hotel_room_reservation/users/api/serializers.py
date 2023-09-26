@@ -15,11 +15,8 @@ class UserSerializer(serializers.ModelSerializer):
     """
     id = serializers.IntegerField(read_only=True)
     password = serializers.CharField(write_only=True)
-    first_name = serializers.CharField(
+    name = serializers.CharField(
         max_length=255, required=True, allow_null=True, allow_blank=True
-    )
-    last_name = serializers.CharField(
-        max_length=255, required=False, allow_null=True, allow_blank=True
     )
     email = serializers.EmailField(
         required=True, validators=[UniqueValidator(queryset=User.objects.all())]
